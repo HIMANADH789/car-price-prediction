@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Price Predictor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f6ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #333;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #4a90e2;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      grid-column: span 2;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #357bd8;
+    }
+    .result {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2b5b84;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Car Price Predictor</h2>
+    <form action="/predict" method="post">
+      <div><label>Symboling</label><input type="number" name="symboling" required step="1" min="-3" max="3" /></div>
+      <div><label>Wheelbase</label><input type="number" name="wheelbase" required step="any" min="85" max="120" /></div>
+      <div><label>Car Length</label><input type="number" name="carlength" required step="any" min="140" max="210" /></div>
+      <div><label>Car Width</label><input type="number" name="carwidth" required step="any" min="60" max="80" /></div>
+      <div><label>Car Height</label><input type="number" name="carheight" required step="any" min="47" max="60" /></div>
+      <div><label>Curb Weight</label><input type="number" name="curbweight" required step="1" min="1500" max="4000" /></div>
+      <div><label>Engine Size</label><input type="number" name="enginesize" required step="1" min="60" max="350" /></div>
+      <div><label>Bore Ratio</label><input type="number" name="boreratio" required step="any" min="2.0" max="4.0" /></div>
+      <div><label>Stroke</label><input type="number" name="stroke" required step="any" min="2.0" max="4.0" /></div>
+      <div><label>Compression Ratio</label><input type="number" name="compressionratio" required step="any" min="7.0" max="12.0" /></div>
+      <div><label>Horsepower</label><input type="number" name="horsepower" required step="1" min="40" max="300" /></div>
+      <div><label>Peak RPM</label><input type="number" name="peakrpm" required step="1" min="4000" max="7000" /></div>
+      <div><label>City MPG</label><input type="number" name="citympg" required step="1" min="10" max="60" /></div>
+      <div><label>Highway MPG</label><input type="number" name="highwaympg" required step="1" min="15" max="70" /></div>
+
+      <div><label>Fuel Type</label><select name="fueltype" required><option value="gas">Gas</option><option value="diesel">Diesel</option></select></div>
+      <div><label>Aspiration</label><select name="aspiration" required><option value="std">Standard</option><option value="turbo">Turbo</option></select></div>
+      <div><label>Door Number</label><select name="doornumber" required><option value="two">Two</option><option value="four">Four</option></select></div>
+      <div><label>Car Body</label><select name="carbody" required><option value="convertible">Convertible</option><option value="hatchback">Hatchback</option><option value="sedan">Sedan</option><option value="wagon">Wagon</option><option value="hardtop">Hardtop</option></select></div>
+      <div><label>Drive Wheel</label><select name="drivewheel" required><option value="rwd">Rear Wheel Drive</option><option value="fwd">Front Wheel Drive</option><option value="4wd">4 Wheel Drive</option></select></div>
+      <div><label>Engine Location</label><select name="enginelocation" required><option value="front">Front</option><option value="rear">Rear</option></select></div>
+      <div><label>Engine Type</label><select name="enginetype" required><option value="dohc">DOHC</option><option value="ohcv">OHCV</option><option value="ohc">OHC</option><option value="l">L</option><option value="rotor">Rotor</option><option value="ohcf">OHCF</option><option value="dohcv">DOHCV</option></select></div>
+      <div><label>Cylinder Number</label><select name="cylindernumber" required><option value="two">2</option><option value="three">3</option><option value="four">4</option><option value="five">5</option><option value="six">6</option><option value="eight">8</option><option value="twelve">12</option></select></div>
+      <div><label>Fuel System</label><select name="fuelsystem" required><option value="mpfi">MPFI</option><option value="2bbl">2BBL</option><option value="mfi">MFI</option><option value="1bbl">1BBL</option><option value="spfi">SPFI</option><option value="4bbl">4BBL</option><option value="idi">IDI</option><option value="spdi">SPDI</option></select></div>
+
+      <button type="submit">Predict Price</button>
+    </form>
+  </div>
+
+  {% if predicted_price %}
+  <div class="result">
+    Predicted Price: {{ predicted_price }}
+  </div>
+  {% endif %}
+</body>
+</html>
